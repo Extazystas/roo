@@ -20,6 +20,15 @@ of a formula but not the formula itself.
 
 Support for streaming .xlsx files is supported. Pass `:minimal_load => true` as an initialize parameter when loading an .xlsx file. You will then need to use the `each_row_streaming` method for iterating rows on a worksheet. See examples under Usage.
 
+#### Example of parsing only header
+```ruby
+Roo::Excelx.new('xlsx_file.xlsx', minimal_load: true).each_row_streaming(max_rows: 1) do |row_cells|
+# row_cells is an array of the first row (because we are limiting to 1 row) with data in your workbook.
+# If you want the excel row index, row_cells.first.coordinate.y should == excel workbook row.
+  @header = row_cells
+end
+```
+
 ### Google Spreadsheet
 
 Using Roo to access Google spreadsheets requires you install the 'google-spreadsheet-ruby' gem separately.
